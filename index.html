@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xiao ESP32 S3 VRChat Face Tracking Flasher</title>
+    <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+    
+    <style>
+        :root {
+            --primary: #0071e3;
+            --secondary: #424245;
+            --warning: #ff9f0a; /* 苹果风格的警告橘色 */
+            --bg: #f5f5f7;
+            --text: #1d1d1f;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, system-ui, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: #ffffff;
+            width: 850px; /* 稍微加宽一点适配新提示 */
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 40px;
+            position: relative;
+        }
+
+        .lang-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #e5e5ea;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        h1 { margin: 0 0 10px 0; font-size: 24px; line-height: 1.3; }
+        .subtitle { color: #86868b; margin-bottom: 30px; font-size: 15px; }
+
+        .btn-group { display: flex; flex-direction: column; gap: 16px; }
+
+        .flash-btn {
+            width: 100%; height: 72px; border: none; border-radius: 14px;
+            font-size: 17px; font-weight: 600; cursor: pointer;
+            display: flex; align-items: center; padding: 0 24px; color: white;
+            justify-content: center; transition: transform 0.2s, opacity 0.2s;
+        }
+        .btn-blue { background: var(--primary); }
+        .flash-btn:hover { opacity: 0.9; transform: scale(1.02); }
+
+        .sidebar { background: #f2f2f7; padding: 25px; border-radius: 18px; font-size: 14px; line-height: 1.6; }
+        .step { margin-bottom: 25px; }
+        .step b { display: block; margin-bottom: 6px; color: #000; font-size: 15px; }
+        .notice-box { 
+            background: #fff3cd; 
+            border-left: 4px solid var(--warning); 
+            padding: 12px; 
+            margin-bottom: 20px; 
+            border-radius: 8px;
+            font-size: 13px;
+        }
+        .important { color: #d63031; font-weight: bold; }
+
+        [lang="en"] .zh, [lang="zh"] .en { display: none; }
+    </style>
+</head>
+<body lang="zh">
+
+<div class="container">
+    <button class="lang-switch" onclick="toggleLang()">English / 中文</button>
+
+    <div class="main">
+        <h1 class="zh">Xiao ESP32 S3 VRChat 面部追踪固件刷写</h1>
+        <h1 class="en">Xiao ESP32 S3 VRChat Face Tracking Flasher</h1>
+        
+        <p class="subtitle zh">一键部署通用型 FaceTracker (OpenIris-ESPIDF) 固件。</p>
+        <p class="subtitle en">One-click FaceTracker (OpenIris-ESPIDF) deployment.</p>
+
+        <div class="btn-group">
+            <esp-web-install-button manifest="./manifest.json">
+                <button slot="activate" class="flash-btn btn-blue">
+                    <span class="zh">🚀 刷入 FaceTracker (通用版)</span>
+                    <span class="en">🚀 Flash FaceTracker (Universal)</span>
+                </button>
+            </esp-web-install-button>
+        </div>
+        
+        <p style="margin-top: 40px; font-size: 12px; color: #b2bec3; text-align: center;">
+            Chrome / Edge / Opera Recommended
+        </p>
+    </div>
+
+    <div class="sidebar">
+        <div class="notice-box">
+            <b class="zh" style="color: var(--warning);">⚠️ 升级建议</b>
+            <b class="en" style="color: var(--warning);">⚠️ Upgrade Notice</b>
+            <p class="zh">建议 <b>2026.4.2</b> 日之前购买的设备都重新刷入此版本。新版固件适配最新版 ETVR 桌面端，支持在工具内直接切换 <b>有线/无线</b> 模式，配网更方便。</p>
+            <p class="en">Devices purchased before <b>2026.4.2</b> are recommended to re-flash. Supports <b>Wired/Wireless</b> switching via the latest ETVR tool.</p>
+        </div>
+
+        <div class="step">
+            <b class="zh">1. 物理连接</b><b class="en">1. Connection</b>
+            <p class="zh">使用数据线将 Xiao ESP32 S3 接入电脑。</p>
+            <p class="en">Connect Xiao ESP32 S3 via USB cable.</p>
+        </div>
+        
+        <div class="step">
+            <b class="zh">2. 固件烧录</b><b class="en">2. Flashing</b>
+            <p class="zh">点击左侧按钮。建议勾选 <mark>Erase device</mark> 以确保旧版数据被彻底清除。</p>
+            <p class="en">Click button. Checking <mark>Erase device</mark> is recommended for clean install.</p>
+        </div>
+
+        <div class="step">
+            <b class="zh important">3. 后续操作</b>
+            <b class="en important">3. Post-Flash</b>
+            <p class="zh">成功后<b>拔插设备</b>。此时 Windows 应识别到名为 <b>"FaceTracker"</b> 的摄像头。如需 WiFi，请配合最新版 ETVR 工具使用。</p>
+            <p class="en"><b>Re-plug</b> device. Windows should find <b>"FaceTracker"</b> camera. Use latest ETVR tool for WiFi setup.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleLang() {
+        const body = document.body;
+        body.lang = body.lang === 'zh' ? 'en' : 'zh';
+    }
+</script>
+
+</body>
+</html>
