@@ -9,7 +9,7 @@
         { "path": "bootloader.bin", "offset": 0 },
         { "path": "partition-table.bin", "offset": 32768 },
         { "path": "ota_data_initial.bin", "offset": 53248 },
-        { "path": "OpenIris-ESPIDF.bin", "offset": 65536 }
+        { "path": "OpenIris-ESPIDF-50hz.bin", "offset": 65536 }
       ]
     }
   ]
