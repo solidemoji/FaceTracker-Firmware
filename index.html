@@ -51,11 +51,10 @@
             font-weight: 500;
         }
 
-        h1 { margin: 0 0 10px 0; font-size: 24px; line-height: 1.3; }
-        .subtitle { color: #86868b; margin-bottom: 20px; font-size: 15px; }
+        h1 { margin: 0 0 20px 0; font-size: 24px; line-height: 1.3; }
         
         /* 频闪提示文字 */
-        .freq-hint { font-size: 13px; color: #86868b; margin-bottom: 20px; line-height: 1.5; }
+        .freq-hint { font-size: 13px; color: #86868b; margin-bottom: 20px; line-height: 1.6; }
 
         .btn-group { display: flex; flex-direction: column; gap: 16px; }
 
@@ -66,7 +65,7 @@
             justify-content: center; transition: transform 0.2s, opacity 0.2s;
         }
         .btn-blue { background: var(--primary); }
-        .btn-dark { background: var(--secondary); } /* 新增深色按钮样式 */
+        .btn-dark { background: var(--secondary); } 
         .flash-btn:hover { opacity: 0.9; transform: scale(1.02); }
 
         .sidebar { background: #f2f2f7; padding: 25px; border-radius: 18px; font-size: 14px; line-height: 1.6; }
@@ -93,27 +92,27 @@
     <div class="main">
         <h1 class="zh">Xiao ESP32 S3 VRChat 面部追踪固件刷写</h1>
         <h1 class="en">Xiao ESP32 S3 VRChat Face Tracking Flasher</h1>
-        
-        <p class="subtitle zh">一键部署通用型 FaceTracker (OpenIris-ESPIDF) 固件。</p>
-        <p class="subtitle en">One-click FaceTracker (OpenIris-ESPIDF) deployment.</p>
 
+        <!-- 频闪选择提示 -->
         <div class="freq-hint">
-            <span class="zh">💡 <b>防闪烁指南：</b>中国大陆、欧洲等地区请选择 <b>50Hz</b>；北美、日本、台湾等地区请选择 <b>60Hz</b>。</span>
-            <span class="en">💡 <b>Anti-Flicker Guide:</b> Choose <b>50Hz</b> for EU/China; Choose <b>60Hz</b> for US/Japan/Taiwan.</span>
+            <span class="zh">💡 <b>防闪烁指南：</b>一般情况下建议刷入 <b>60Hz</b> 固件。如果在中国、欧洲等使用 50Hz 交流电的地区，遇到强烈的灯光闪烁干扰画面的问题，请切换至 <b>50Hz</b> 固件（通常只有部分老旧灯具会导致闪烁）。</span>
+            <span class="en">💡 <b>Anti-Flicker Guide:</b> <b>60Hz</b> firmware is generally recommended. If you are in 50Hz power regions (e.g., EU, China) and experience severe light flickering on camera, switch to <b>50Hz</b> (usually only caused by older lighting).</span>
         </div>
 
         <div class="btn-group">
-            <esp-web-install-button manifest="./manifest_50hz.json">
+            <!-- 60Hz 按钮（推荐，放上面），指向 manifest_60hz.json -->
+            <esp-web-install-button manifest="./manifest_60hz.json">
                 <button slot="activate" class="flash-btn btn-blue">
-                    <span class="zh">🚀 刷入 FaceTracker (50Hz 版)</span>
-                    <span class="en">🚀 Flash FaceTracker (50Hz)</span>
+                    <span class="zh">🚀 刷入 FaceTracker (60Hz 版)</span>
+                    <span class="en">🚀 Flash FaceTracker (60Hz)</span>
                 </button>
             </esp-web-install-button>
 
-            <esp-web-install-button manifest="./manifest_60hz.json">
+            <!-- 50Hz 按钮，指向 manifest_50hz.json -->
+            <esp-web-install-button manifest="./manifest_50hz.json">
                 <button slot="activate" class="flash-btn btn-dark">
-                    <span class="zh">🚀 刷入 FaceTracker (60Hz 版)</span>
-                    <span class="en">🚀 Flash FaceTracker (60Hz)</span>
+                    <span class="zh">🚀 刷入 FaceTracker (50Hz 版)</span>
+                    <span class="en">🚀 Flash FaceTracker (50Hz)</span>
                 </button>
             </esp-web-install-button>
         </div>
@@ -139,8 +138,8 @@
         
         <div class="step">
             <b class="zh">2. 固件烧录</b><b class="en">2. Flashing</b>
-            <p class="zh">选择对应电网频率的按钮。建议勾选 <mark>Erase device</mark> 以确保旧版数据被彻底清除。</p>
-            <p class="en">Select button based on your grid frequency. Checking <mark>Erase device</mark> is recommended.</p>
+            <p class="zh">选择对应版本的按钮。建议勾选 <mark>Erase device</mark> 以确保旧版数据被彻底清除。</p>
+            <p class="en">Select button based on your needs. Checking <mark>Erase device</mark> is recommended.</p>
         </div>
 
         <div class="step">
